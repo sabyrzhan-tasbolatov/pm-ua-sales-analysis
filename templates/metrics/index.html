@@ -1,0 +1,40 @@
+{% raw %}
+<div class="col-md-12">
+  <h1>Metrics</h1>
+  <hr/>
+
+  <div class="col-md-4">
+    <select class="form-control pull-left"
+          ng-model="criteria"
+          ng-options="c as c.name for c in criteries"></select>
+  </div>
+
+  <div class="col-md-8" style="margin-top: -20px;">
+    <div class="pull-left">
+      <p class="input-group">
+        From:
+        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-click="open1()" ng-model="from" is-open="flags.openedDate1" close-text="Close">
+      </p>
+    </div>
+
+    <div class="pull-left" style="margin-left:10px">
+      <p class="input-group">
+        To:
+        <input type="text" class="form-control" uib-datepicker-popup ng-model="to" ng-click="open2()" is-open="flags.openedDate2" close-text="Close"/>
+      </p>
+    </div>
+
+    <div class="pull-left" style="margin-left:10px;margin-top: 20px;">
+      <button class="btn btn-primary" ng-click="query()">Search</button>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div style="border:#999;padding:10px;margin:15px;float:left;" ng-repeat="chart in charts">
+      <h3>{{chart.title}}</h3>
+      <chart data="chart.data" settings="chart.settings"></chart>
+    </div>
+  </div>
+
+</div>
+{% endraw %}
