@@ -5,7 +5,18 @@
     .controller('StatisticsCtrl', ['$scope', '$http', function($scope, $http) {
       var init = function() {
         resetChartFlags();
-        $scope.format = 'yyyy-mm-dd';
+        $scope.format = 'MM/dd/yyyy';
+        $scope.from = '01/01/2014';
+        $scope.to = '05/31/2014';
+        $scope.cs = [
+          {c: 'act_sa', name: 'Shop Assistance'},
+          {c: 'act_hostess', name: 'Hostess'},
+          {c: 'act_pfp', name: 'PFP'},
+          {c: 'act_avb_boost', name: 'AVB Boost'},
+          {c: 'act_display', name: 'Displays'},
+          {c: 'act_retailer', name: 'Retailers'}
+        ];
+        $scope.c = $scope.cs[0];
       };
 
       $scope.statistics = function() {
@@ -13,12 +24,14 @@
         resetChartFlags();
 
         var params = {
-          from: $scope.from,
-          to: $scope.to
+          from: moment($scope.from).format('l'),
+          to: moment($scope.to).format('l'),
+          c: $scope.c.c
         };
 
         $http.post('/statistics', params)
           .success(function(res) {
+            console.log(res.list[0])
             $scope.charts = res.list;
           });
       };

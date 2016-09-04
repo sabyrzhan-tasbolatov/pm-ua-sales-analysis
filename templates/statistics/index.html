@@ -3,6 +3,12 @@
   <h1>Statistics</h1>
   <hr/>
 
+  <div class="col-md-4">
+    <select class="form-control pull-left"
+          ng-model="c"
+          ng-options="o as o.name for o in cs"></select>
+  </div>
+
   <div class="col-md-8" style="margin-top: -20px;">
     <div class="pull-left">
       <p class="input-group">
@@ -14,7 +20,7 @@
     <div class="pull-left" style="margin-left:10px">
       <p class="input-group">
         To:
-        <input type="text" class="form-control" uib-datepicker-popup ng-model="to" ng-click="open2()" is-open="flags.openedDate2" close-text="Close"/>
+        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="to" ng-click="open2()" is-open="flags.openedDate2" close-text="Close"/>
       </p>
     </div>
 
