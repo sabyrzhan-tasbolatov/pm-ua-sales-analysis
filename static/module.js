@@ -11,15 +11,20 @@
       'ui.bootstrap'
     ])
       .config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
-        $urlRouterProvider.when("", "metrics");
-        $urlRouterProvider.when("/", "metrics");
-        $urlRouterProvider.otherwise("metrics");
+        $urlRouterProvider.when("", "statistics");
+        $urlRouterProvider.when("/", "statistics");
+        $urlRouterProvider.otherwise("statistics");
 
         $stateProvider
           .state('pmu', {
             abstract: true,
             url: '/',
             template: '<ui-view/>'
+          })
+          .state('pmu.statistics', {
+            url: 'statistics',
+            templateUrl: '/statistics/index',
+            controller: 'StatisticsCtrl'
           })
           .state('pmu.metrics', {
             url: 'metrics',

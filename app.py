@@ -17,6 +17,11 @@ def render_pages(section, page, name=None):
                            name=name)
 
 
+@app.route('/statistics', methods=['POST'])
+def statistics():
+    pass
+
+
 @app.route('/query', methods=['POST'])
 def query():
     pass

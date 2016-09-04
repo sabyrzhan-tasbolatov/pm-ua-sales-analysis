@@ -1,0 +1,3 @@
+
+class Analysis(object):
+    pass
