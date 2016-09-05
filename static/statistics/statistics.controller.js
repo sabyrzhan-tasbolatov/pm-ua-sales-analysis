@@ -32,10 +32,22 @@
         $http.post('/statistics', params)
           .success(function(res) {
             var data = res.list;
+            var brand_piecharts = [], pos_piecharts = [], barcharts = [], bar = [{key: 'Investments', values: []}];
 
+            data.forEach(function(d, index) {
+              var e = d['_id'];
+              var p = d.pos_info;
+              bar[0].values.push({x: e.date, y: e.investment});
+              brand_piecharts.push({label: e.brand, value: e.investment});
 
+              if (p) {
+                pos_piecharts.push({label: p.region, value: e.investment, trade: p.trade, customer_type: p.customer_type});
+              }
+            });
 
-            $scope.charts = _.map();
+//            $scope.charts.push({ settings: {chart: 'pie'}, data: brand_piecharts, title: 'Brands Distribution'});
+            $scope.charts.push({ settings: {chart: 'pie'}, data: pos_piecharts, title: 'POS Distribution'});
+            $scope.charts.push({ settings: {chart: 'bar'}, data: bar, title: 'Investments per start week'});
           });
       };
 

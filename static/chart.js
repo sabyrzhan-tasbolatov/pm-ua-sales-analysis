@@ -10,15 +10,15 @@
           data: '=',
           settings: '='
         },
-        template: '<svg ng-show="data.links.length"></svg>' +
+        template: '<svg ng-show="data.length"></svg>' +
       '<div class="alert alert-info text-center" ng-hide="data.length">' +
       '<i class=\'icon-alert-triangle\'></i> ' + 'No Data Available' +
       '</div>',
         link: function(scope, el) {
-          var el = angular.element(el).children('svg')[0];
 
           scope.$watch('data', function(n, o) {
             if (!n) return;
+
             switch(scope.settings.chart) {
               case('line'):line();break;
               case('bar'):bar();break;
@@ -27,60 +27,83 @@
             }
           }, true);
 
-//          [{'x': 1, 'y': 2}]
           function line() {
-            nvd.addGraph(function() {
+            var dom = angular.element(el).children('svg')[0];
+            if (!dom) return;
+            d3.selectAll('.nvtooltip').remove();
+
+            console.log(dom)
+            console.log(scope.data)
+
+            nv.addGraph(function() {
               var chart = nv.models.lineChart()
                 .useInteractiveGuideline(true)
                 .margin({right: 50, bottom: 85})
                 .showXAxis(true)
                 .showYAxis(true)
 
-                draw(el, scope.data, chart);
+                draw(dom, scope.data, chart);
+                nv.utils.windowResize(chart.update);
 
                 return chart;
             });
           }
 
           function pie() {
-            nvd.addGraph(function() {
+            var dom = angular.element(el).children('svg')[0];
+            if (!dom) return;
+            d3.selectAll('.nvtooltip').remove();
+
+            nv.addGraph(function() {
               var chart = nv.models.pieChart()
                 .x(function(d) { return d.label })
                 .y(function(d) { return d.value })
                 .margin({right: 50, bottom: 85})
                 .showLabels(true)     //Display pie labels
+                .showLegend(false)
                 .labelsOutside(true)
                 .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
                 .labelType('percent') //Configure what type of data to show in the label. Can be "key", "value" or "percent"
                 .legendPosition('top');
 
-                draw(el, scope.data, chart);
+                draw(dom, scope.data, chart);
+                nv.utils.windowResize(chart.update);
 
                 return chart;
             });
           }
 
           function bar() {
-            nvd.addGraph(function() {
+            var dom = angular.element(el).children('svg')[0];
+            if (!dom) return;
+            d3.selectAll('.nvtooltip').remove();
+
+            nv.addGraph(function() {
               var chart = nv.models.multiBarChart()
                 .reduceXTicks(false)
                 .margin({right: 50, bottom: 85})
                 .groupSpacing(0.5)
 
-                draw(el, scope.data, chart);
+                draw(dom, scope.data, chart);
+                nv.utils.windowResize(chart.update);
 
                 return chart;
             });
           }
 
           function scatter() {
-            nvd.addGraph(function() {
+            var dom = angular.element(el).children('svg')[0];
+            if (!dom) return;
+            d3.selectAll('.nvtooltip').remove();
+
+            nv.addGraph(function() {
               var chart = nv.models.scatterChart()
                 .margin({right: 50, bottom: 85})
                 .showDistX(false)
                 .showDistY(false)
 
-                draw(el, scope.data, chart);
+                draw(dom, scope.data, chart);
+                nv.utils.windowResize(chart.update);
 
                 return chart;
             });

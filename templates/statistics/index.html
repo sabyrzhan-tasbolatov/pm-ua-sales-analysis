@@ -29,10 +29,10 @@
     </div>
   </div>
 
-  <div class="col-md-12">
-    <div style="border:#999;padding:10px;margin:15px;float:left;" ng-repeat="c in charts">
+  <div class="col-md-12" ng-if="charts.length">
+    <div style="border:#999;padding:10px;margin:15px;height:500px;width:100%" ng-repeat="c in charts">
       <h3>{{c.title}}</h3>
-      <chart data="c.data" settings="c.settings"></chart>
+      <pmu-chart data="c.data" settings="c.settings"></pmu-chart>
     </div>
   </div>
 

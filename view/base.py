@@ -56,9 +56,9 @@ def _compute_timeline(data, pipeline):
         found_pos = basedb.find_one_q('pos', {"Customer_Code": pos_code})
         if not found_pos:
             break
-        entry['pos_info'] = dict(trade=found_pos['Trade_Category'],
-                                 customer_type=found_pos['Customer_Type'],
-                                 region=found_pos['Region'])
+        entry['pos_info'] = dict(trade=found_pos['Trade_Category'] or 'N/A',
+                                 customer_type=found_pos['Customer_Type'] or 'N/A',
+                                 region=found_pos['Region'] or 'N/A')
 
     return results
 
