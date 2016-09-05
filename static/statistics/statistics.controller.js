@@ -24,15 +24,18 @@
         resetChartFlags();
 
         var params = {
-          from: moment($scope.from).format('l'),
-          to: moment($scope.to).format('l'),
+          from: moment($scope.from).unix(),
+          to: moment($scope.to).unix(),
           c: $scope.c.c
         };
 
         $http.post('/statistics', params)
           .success(function(res) {
-            console.log(res.list[0])
-            $scope.charts = res.list;
+            var data = res.list;
+
+
+
+            $scope.charts = _.map();
           });
       };
 

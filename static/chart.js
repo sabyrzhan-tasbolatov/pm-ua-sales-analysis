@@ -3,9 +3,9 @@
 
   angular
     .module('pmu')
-    .directive('chart', ['', function() {
+    .directive('pmuChart', function() {
       return {
-        restrict: 'E',
+        restrict: 'EA',
         scope: {
           data: '=',
           settings: '='
@@ -94,5 +94,5 @@
           }
         }
       }
-    }])
+    })
 })();
